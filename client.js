@@ -2,6 +2,7 @@ $(document).ready(readyNow);
 
 function readyNow(){
     $('#submitBtn').on('click', appendEmployeeInfo);
+    $('#displayEmployee').on('click', '.deleteBtn', removeEmployeeInfo)
 }
 
 let employeeSheet = [];
@@ -16,15 +17,15 @@ function appendEmployeeInfo(){
     }
     employeeSheet.push(employee);
     $("#displayEmployee").append(`
-    <tr>
+    <tr class="empData">
         <td>${employee.fName}</td>
         <td>${employee.lName}</td>
         <td>${employee.empID}</td>
         <td>${employee.jTitle}</td>
         <td>$${employee.aSalary}</td>
-        <td><button id='deleteBtn'>DELETE</button></td>
+        <td><button class="deleteBtn">DELETE</button></td>
     </tr>
-    `)
+    `);
     calculateMonthly();
 }
 
@@ -35,16 +36,21 @@ function calculateMonthly(){
             annualCost += parseFloat(employee.aSalary) * 1000000;
         }
         else if (employee.aSalary.length <= 7 && employee.aSalary.length > 3){
-            annualCost += parseFloat(employee.aSalary) * 1000
+            annualCost += parseFloat(employee.aSalary) * 1000;
         }
         else {
-            annualCost += Number(employee.aSalary)
+            annualCost += Number(employee.aSalary);
         }
     }
     let monthlyCost = annualCost / 12;
-    $('#monthlyCost').empty()
-    $('#monthlyCost').append(`${monthlyCost}`)
+    $('#monthlyCost').empty();
+    $('#monthlyCost').append(`${monthlyCost}`);
     if (monthlyCost > 20000){
         $('#displayCosts').addClass('inTheRed');
     }
+}
+
+function removeEmployeeInfo(){
+    console.log('click');
+    $(this).closest('.empData').remove();
 }
