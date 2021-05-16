@@ -26,6 +26,7 @@ function appendEmployeeInfo(){
         <td><button class="deleteBtn">DELETE</button></td>
     </tr>
     `);
+    $('.employeeTableData').val('');
     calculateMonthly();
 }
 
