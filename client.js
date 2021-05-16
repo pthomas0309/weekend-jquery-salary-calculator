@@ -16,18 +16,23 @@ function appendEmployeeInfo(){
         aSalary: $('#annualSalary').val(),
     }
     employeeSheet.push(employee);
-    $("#displayEmployee").append(`
-    <tr class="empData">
-        <td>${employee.fName}</td>
-        <td>${employee.lName}</td>
-        <td>${employee.empID}</td>
-        <td>${employee.jTitle}</td>
-        <td>$${employee.aSalary}</td>
-        <td><button class="deleteBtn">DELETE</button></td>
-    </tr>
-    `);
-    $('.employeeTableData').val('');
-    calculateMonthly();
+    if (inputCheck()){
+        $("#displayEmployee").append(`
+        <tr class="empData">
+            <td>${employee.fName}</td>
+            <td>${employee.lName}</td>
+            <td>${employee.empID}</td>
+            <td>${employee.jTitle}</td>
+            <td>$${employee.aSalary}</td>
+            <td><button class="deleteBtn">DELETE</button></td>
+        </tr>
+        `);
+        $('.employeeTableData').val('');
+        calculateMonthly();
+    }
+    else {
+        alert("All Fields Required.");
+    }
 }
 
 function calculateMonthly(){
@@ -54,4 +59,50 @@ function calculateMonthly(){
 function removeEmployeeInfo(){
     console.log('click');
     $(this).closest('.empData').remove();
+}
+
+function inputCheck(){
+    let expandedEmployeeSheet = [];
+    for (let employee of employeeSheet){
+        expandedEmployeeSheet = Object.values(employee);
+        console.log(expandedEmployeeSheet);
+    }
+    if (expandedEmployeeSheet[0] === ''){
+        $('#firstName').addClass('missingInput');
+        employeeSheet.pop();
+    }
+    else {
+        $('#firstName').removeClass('missingInput');
+    }
+    if (expandedEmployeeSheet[1] === ''){
+        $('#lastName').addClass('missingInput');
+        employeeSheet.pop();
+    }
+    else {
+        $('#lastName').removeClass('missingInput');
+    }
+    if (expandedEmployeeSheet[2] === ''){
+        $('#employeeId').addClass('missingInput');
+        employeeSheet.pop();
+    }
+    else {
+        $('#employeeId').removeClass('missingInput');
+    }
+    if (expandedEmployeeSheet[3] === ''){
+        $('#jobTitle').addClass('missingInput');
+        employeeSheet.pop();
+    }
+    else {
+        $('#jobTitle').removeClass('missingInput');
+    }
+    if (expandedEmployeeSheet[4] === ''){
+        $('#annualSalary').addClass('missingInput');
+        employeeSheet.pop();
+    }
+    else {
+        $('#annualSalary').removeClass('missingInput');
+    }
+    for (let employeeData of expandedEmployeeSheet){
+        return expandedEmployeeSheet[0] != '' && expandedEmployeeSheet[1] != '' && expandedEmployeeSheet[2] != '' && expandedEmployeeSheet[3] != '' && expandedEmployeeSheet[4] != '';
+    }
 }

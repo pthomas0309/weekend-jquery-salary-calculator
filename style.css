@@ -1,3 +1,7 @@
 .inTheRed {
     background-color: red;
 }
+
+.missingInput {
+    border: solid 3px red;
+}
