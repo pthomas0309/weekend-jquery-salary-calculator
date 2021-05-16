@@ -15,5 +15,14 @@ function appendEmployeeInfo(){
         aSalary: $('#annualSalary').val(),
     }
     employeeSheet.push(employee);
+    $("#displayEmployee").append(`
+    <tr>
+        <td>${employee.fName}</td>
+        <td>${employee.lName}</td>
+        <td>${employee.empID}</td>
+        <td>${employee.jTitle}</td>
+        <td>${employee.aSalary}</td>
+    </tr>
+    `)
     console.log(employeeSheet);
 }
