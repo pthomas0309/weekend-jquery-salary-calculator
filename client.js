@@ -1,10 +1,10 @@
 $(document).ready(readyNow);
 
 function readyNow(){
-    $('#submitBtn').on('click', appendEmployeeInfo)
+    $('#submitBtn').on('click', appendEmployeeInfo);
 }
 
-let employeeSheet = []
+let employeeSheet = [];
 
 function appendEmployeeInfo(){
     let employee = {
@@ -21,8 +21,30 @@ function appendEmployeeInfo(){
         <td>${employee.lName}</td>
         <td>${employee.empID}</td>
         <td>${employee.jTitle}</td>
-        <td>${employee.aSalary}</td>
+        <td>$${employee.aSalary}</td>
+        <td><button id='deleteBtn'>DELETE</button></td>
     </tr>
     `)
-    console.log(employeeSheet);
+    calculateMonthly();
+}
+
+function calculateMonthly(){
+    let annualCost = 0;
+    for (let employee of employeeSheet){
+        if (employee.aSalary.length > 7){
+            annualCost += parseFloat(employee.aSalary) * 1000000;
+        }
+        else if (employee.aSalary.length <= 7 && employee.aSalary.length > 3){
+            annualCost += parseFloat(employee.aSalary) * 1000
+        }
+        else {
+            annualCost += Number(employee.aSalary)
+        }
+    }
+    let monthlyCost = annualCost / 12;
+    $('#monthlyCost').empty()
+    $('#monthlyCost').append(`${monthlyCost}`)
+    if (monthlyCost > 20000){
+        $('#displayCosts').addClass('inTheRed');
+    }
 }
